@@ -29,13 +29,13 @@ function App() {
     getProducts()
   }, [])
 
-  const removeItem = (id) => {
+  const removeItem = (id: number) => {
     
     remove(id);
     // reRender
     setProducts(products.filter(item => item.id !== id));
   }
-  const onHanleAdd = (data) => {
+  const onHanleAdd = (data: { name: string; price: number }) => {
     add(data);
     setProducts([...products,data])
   }
