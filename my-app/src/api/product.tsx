@@ -5,7 +5,7 @@ export const list = () =>{
     const url = `/products`;
     return intance.get(url)
 }
-export const remove = (id: number) =>{
+export const remove = (id) =>{
     const url = `/products/${id}`;
     return intance.delete(url)
 }

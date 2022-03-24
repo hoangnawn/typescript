@@ -11,8 +11,6 @@ import ProductDetail from './pages/ProductDetail'
 import ProductAdd from './pages/ProductAdd'
 
 function App() {
-  const [count, setCount] = useState(0)
-  const [status, setStatus] = useState(false);
 
   const [products, setProducts] = useState<ProductType[]>([])
 
@@ -32,7 +30,7 @@ function App() {
     // reRender
     setProducts(products.filter(item => item.id !== id));
   }
-  const onHanleAdd = (data: { name: string; price: number }) => {
+  const onHanleAdd = (data: { name: string; price: number }) => { // On là truyền hàm
     add(data);
     setProducts([...products,data])
   }
@@ -50,7 +48,7 @@ function App() {
         <Route path='admin' element={<AdminLayout />}>
           <Route index element={<Navigate to="dashbroad" />} />
           <Route path='dashbroad' element={<h1>Dashboard</h1>} />
-          <Route path="product" element={<ProductManager products={products} onRemove={removeItem}/>} />
+          <Route path="/admin/product" element={<ProductManager products={products} onRemove={removeItem}/>} />
           <Route path='/admin/product/add' element={<ProductAdd onAdd={onHanleAdd} />} />
         </Route>
         <Route path='*' element={<h1>Not Found</h1>} />
