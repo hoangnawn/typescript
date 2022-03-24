@@ -10,6 +10,7 @@ import ProductManager from './pages/Productmanager'
 import ProductDetail from './pages/ProductDetail'
 import ProductAdd from './pages/ProductAdd'
 import ProductEdit from './pages/ProductEdit'
+import Private from './components/Private'
 
 function App() {
 
@@ -50,7 +51,7 @@ function App() {
                 <Route path=":id" element={<ProductDetail />} />
               </Route>
         </Route>
-        <Route path='admin' element={<AdminLayout />}>
+        <Route path='admin' element={<Private><AdminLayout /></Private>}>
           <Route index element={<Navigate to="dashbroad" />} />
           <Route path='dashbroad' element={<h1>Dashboard</h1>} />
           <Route path="product">
@@ -59,6 +60,7 @@ function App() {
             <Route path=':id/edit' element={<ProductEdit onUpdate={onHanleEdit} />} />
           </Route>
         </Route>
+        <Route path='login' element={<h1>Login Page</h1>} />
         <Route path='*' element={<h1>Not Found</h1>} />
       </Routes>
     </div>
