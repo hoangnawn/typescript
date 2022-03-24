@@ -22,7 +22,7 @@ const ProductAdd = (props: ProductAddProps) =>{
         <form action="" onSubmit={handleSubmit(onSumbit)}>
            Name: <input type="text" {...register('name', {required: true})} /> <br />
            Price  <input type="number" {...register('price')} /> <br />
-            <button>Add</button>
+            <button className="btn">Add</button>
         </form>
     )
 }

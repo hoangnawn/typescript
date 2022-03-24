@@ -5,10 +5,11 @@ import Homepage from './pages/Homepage'
 import WebsiteLayout from './pages/layouts/WebsiteLayout'
 import AdminLayout from './pages/layouts/AdminLayout'
 import { ProductType } from './types/product'
-import { add, list, remove } from './api/product'
+import { add, list, remove, update } from './api/product'
 import ProductManager from './pages/Productmanager'
 import ProductDetail from './pages/ProductDetail'
 import ProductAdd from './pages/ProductAdd'
+import ProductEdit from './pages/ProductEdit'
 
 function App() {
 
@@ -17,9 +18,7 @@ function App() {
   useEffect(()=>{
     const getProducts = async () =>{
       const { data } = await list();
-      setProducts(data);
-      console.log(data);
-      
+      setProducts(data);      
     }
     getProducts()
   }, [])
@@ -30,9 +29,15 @@ function App() {
     // reRender
     setProducts(products.filter(item => item.id !== id));
   }
+
   const onHanleAdd = (data: { name: string; price: number }) => { // On là truyền hàm
     add(data);
     setProducts([...products,data])
+  }
+  const onHanleEdit = async (product: ProductType) => {
+    const { data } = await update(product);
+
+    setProducts(products.map(item => item.id === data.id ? data: item))
   }
 
   return (
@@ -48,8 +53,11 @@ function App() {
         <Route path='admin' element={<AdminLayout />}>
           <Route index element={<Navigate to="dashbroad" />} />
           <Route path='dashbroad' element={<h1>Dashboard</h1>} />
-          <Route path="/admin/product" element={<ProductManager products={products} onRemove={removeItem}/>} />
-          <Route path='/admin/product/add' element={<ProductAdd onAdd={onHanleAdd} />} />
+          <Route path="product">
+            <Route index element={<ProductManager products={products} onRemove={removeItem}/>} />
+            <Route path='add' element={<ProductAdd onAdd={onHanleAdd} />} />
+            <Route path=':id/edit' element={<ProductEdit onUpdate={onHanleEdit} />} />
+          </Route>
         </Route>
         <Route path='*' element={<h1>Not Found</h1>} />
       </Routes>
